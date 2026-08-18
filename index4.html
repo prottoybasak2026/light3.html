@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Animation</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+
+            background-image: url("backgrounduni.jpeg (2)");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            background-size: cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 0;
+        }
+
+        /* Animated heading */
+        h2 {
+            position: absolute;
+            top: 30px;
+            z-index: 5;
+
+            color: #fff;
+            text-align: center;
+            font-size: 38px;
+            font-family: "Audiowide", sans-serif;
+            letter-spacing: 4px;
+
+            text-shadow:
+                0 0 5px #fff,
+                0 0 15px #00eaff,
+                0 0 30px #00eaff,
+                0 0 50px #008cff;
+
+            animation: titleGlow 2s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from {
+                transform: scale(1);
+                text-shadow:
+                    0 0 5px #fff,
+                    0 0 15px #00eaff;
+            }
+
+            to {
+                transform: scale(1.05);
+                text-shadow:
+                    0 0 10px #fff,
+                    0 0 25px #00eaff,
+                    0 0 50px #008cff;
+            }
+        }
+
+        /* Bulb */
+        #bulb {
+            position: absolute;
+            top: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            width: 200px;
+
+            z-index: 3;
+
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+
+            animation: bulbFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes bulbFloat {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-12px);
+            }
+        }
+
+        /* Light aura */
+        body::after {
+            content: "";
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            top: 120px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            border-radius: 50%;
+
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 150, 0.35),
+                rgba(255, 200, 0, 0.12),
+                transparent 70%
+            );
+
+            filter: blur(10px);
+
+            animation: aura 2s ease-in-out infinite alternate;
+
+            z-index: 1;
+        }
+
+        @keyframes aura {
+            from {
+                opacity: 0.3;
+                transform: translateX(-50%) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        /* Button */
+        button {
+            position: absolute;
+
+            top: 420px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            padding: 13px 30px;
+
+            font-size: 17px;
+            font-family: "Orbitron", sans-serif;
+            font-weight: bold;
+
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                #006eff,
+                #00c6ff
+            );
+
+            border: none;
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 0 10px #008cff,
+                0 0 25px rgba(0, 140, 255, 0.5);
+
+            transition: 0.3s;
+
+            z-index: 5;
+        }
+
+        button:hover {
+            transform: translateX(-50%) scale(1.08);
+
+            box-shadow:
+                0 0 15px #00eaff,
+                0 0 35px #008cff,
+                0 0 60px rgba(0, 140, 255, 0.7);
+        }
+
+        button:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+
+            width: 5px;
+            height: 5px;
+
+            background: #fff;
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 10px #00eaff;
+
+            animation: particleMove linear infinite;
+
+            z-index: 2;
+        }
+
+        @keyframes particleMove {
+            from {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        .p1 {
+            left: 10%;
+            animation-duration: 6s;
+        }
+
+        .p2 {
+            left: 25%;
+            animation-duration: 8s;
+            animation-delay: 2s;
+        }
+
+        .p3 {
+            left: 70%;
+            animation-duration: 7s;
+            animation-delay: 1s;
+        }
+
+        .p4 {
+            left: 85%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+        }
+
+        .p5 {
+            left: 50%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>IMAGE BLINKING</h2>
+
+    <img id="bulb" src="lightoff.png" width="200">
+
+    <button onclick="changeImage()">
+        ⚡ TURN ON / OFF
+    </button>
+
+    <!-- Floating particles -->
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+
+
+    <script>
+
+        /* =========================
+           BUTTON CLICK SOUND
+        ========================== */
+
+        var clickSound = new Audio("click.mp3");
+
+
+        function changeImage() {
+
+            var image = document.getElementById("bulb");
+
+            /* Play sound */
+            clickSound.currentTime = 0;
+            clickSound.play();
+
+
+            /* Change image */
+
+            if (image.src.includes("lightoff.png")) {
+
+                image.src = "lighton.png";
+
+            } else {
+
+                image.src = "lightoff.png";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
